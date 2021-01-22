@@ -2,7 +2,13 @@
   "name": "dymanic-rule-runner",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vedmalex/rule-runner.git"
+  },
   "scripts": {
     "prepublish": "tsc --build tsconfig.json",
     "clean": "git clean -dfqX -- ./node_modules **/{dist,node_modules}/",

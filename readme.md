@@ -1,15 +1,17 @@
 # Dynamic rule runer
 
-make dynamic behaviour without slowdown of js proxies
+Make dynamic behaviour without slowdown of js proxies
 
-writtern on typescript
+It is light and blazing fast
+
+Writtern on typescript
 
 ## About
 
 Utility library to dinamicly define behavior on existing objects
 can be used in dev-environment to hook existing object, provide different behavior and etc
 
-## Aample of usage
+## Sample of usage
 
 Suppose we have next structure of objects
 
@@ -174,4 +176,44 @@ class User {
     }`
   }
 }
+```
+
+## benchmark results
+
+```ts
+suite
+  .add('mobx', function () {
+    const user = new User('Ivan', 'Gorky')
+    const fullName = user.fullName
+    const id = user.id
+    const createdAt = user.createdAt
+  })
+  .add('runner', function () {
+    runner.create({ name: 'Ivan', lastName: 'Gorky' })
+  })
+  .add('static', function () {
+    let user: Partial<DTO> = { name: 'Ivan', lastName: 'Gorky' }
+    user.id = id++
+    const { name, lastName, secondName } = user
+    user.fullName = `${name ? name : ''}${secondName ? ' ' + secondName : ''}${
+      lastName ? ' ' + lastName : ''
+    }`
+    user.createdAt = new Date().toJSON()
+  })
+  .on('cycle', function (event) {
+    console.log(String(event.target))
+  })
+  .on('complete', function () {
+    console.log('Fastest is ' + this.filter('fastest').map('name'))
+  })
+suite.run()
+
+```
+
+The performance is on my macbook (not pro) 2016
+
+```
+mobx x 69,978 ops/sec ±7.05% (74 runs sampled)
+runner x 359,202 ops/sec ±6.20% (78 runs sampled)
+static x 591,505 ops/sec ±5.28% (82 runs sampled)
 ```
