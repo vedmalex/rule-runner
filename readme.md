@@ -13,6 +13,14 @@ can be used in dev-environment to hook existing object, provide different behavi
 
 ## Sample of usage
 
+install
+
+`yarn add dymanic-rule-runner`
+or
+`npm i dymanic-rule-runner`
+
+
+
 Suppose we have next structure of objects
 
 ```ts
