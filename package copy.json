@@ -1,0 +1,19 @@
+{
+  "name": "b-pl-tree",
+  "version": "1.0.0-aplfa.0",
+  "description": "Pretty simple b+ tree implementation on typescript",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "types": "dost/index.d.ts",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vedmalex/b-plus-tree.git"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "mongo-objectid": "^1.2.1"
+  },
+  "author": " ",
+  "license": "MIT"
+}
