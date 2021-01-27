@@ -76,4 +76,12 @@ describe('Rule', () => {
     expect(rule.field).toBe(field)
     expect(rule.type).toBe('setter')
   })
+
+  it('names action as full event time', () => {
+    const [rule] = Rule.createAction({
+      on: 'after:clone',
+      run: () => undefined,
+    })
+    expect(rule.name).toBe('after:clone')
+  })
 })

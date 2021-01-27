@@ -72,7 +72,7 @@ export class Rule<T extends object> {
 
   private initAction(hook: ActionHookTime, method: ActionHookMethod) {
     this.type = 'action'
-    this.name = `action on ${hook} ${method}`
+    this.name = `${hook}:${method}`
     this.method = method
     this.hook = hook
     this.checkConsistency()

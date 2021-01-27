@@ -1,6 +1,10 @@
 import { updateValue } from './methods/updateValue'
 import { Rule } from './Rule'
-import { ActionHookTime, ActionHookMethod } from './methods/ExecutionTme'
+import {
+  ActionHookTime,
+  ActionHookMethod,
+  FullEventName,
+} from './methods/ExecutionTme'
 
 export const deleted = Symbol('deleted')
 export const state = Symbol('state')
@@ -612,7 +616,7 @@ export class RuleRunner<T extends { id?: number }> {
     }
   }
 
-  execute(obj: T, name: string, ...args) {
+  execute(obj: T, name: string | FullEventName, ...args) {
     if (this.methods.has(name)) {
       this.executeAction(obj, this.methods.get(name), args)
     } else {
@@ -638,17 +642,16 @@ export class RuleRunner<T extends { id?: number }> {
     }
   }
 
-  executeAllActions(obj: T, ...args): Map<string, any> {
+  runAction(obj: T, name: FullEventName): Map<string, any> {
     let result = new Map<string, any>()
-    this.actions.forEach((rule, name) => {
-      if (rule instanceof Set) {
-        rule.forEach((r) => {
-          result.set(name, this.executeAction(obj, r, ...args))
-        })
-      } else {
-        result.set(name, this.executeAction(obj, rule, ...args))
-      }
-    })
+    const rule = this.actions.get(name)
+    if (rule instanceof Set) {
+      rule.forEach((r) => {
+        result.set(name, this.executeAction(obj, r))
+      })
+    } else {
+      result.set(name, this.executeAction(obj, rule))
+    }
     return result
   }
 }
